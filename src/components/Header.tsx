@@ -56,7 +56,7 @@ const Header = () => {
                 <DrawerHeader>
                   <DrawerTitle className="text-2xl">Navigation</DrawerTitle>
                   <DrawerDescription>
-                    Access all sections of our website.
+                    Access all sections of our websitew .
                   </DrawerDescription>
                 </DrawerHeader>
 
