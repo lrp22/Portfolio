@@ -46,20 +46,20 @@ const Contact = () => {
 
   return (
     <section
-      id="contact"
-      className="w-full py-12 md:py-24 lg:py-32 justify-center items-center bg-muted/35"
-    >
-      <div>
-        <div className="space-y-2 flex flex-col items-center text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-            Get In Touch
-          </h2>
-          <p className="max-w-[900px] mx-auto text-muted-foreground md:text-xl">
-            Have a project in mind or want to chat? Feel free to reach out!
-          </p>
-        </div>
-        <div className="py-6 px-8 md:px-20 lg:px-32 flex-col items-center justify-center space-y-4 text-center">
-          <div className="mx-auto grid max-w-5xl gap-6 py-2 md:grid-cols-2">
+  id="contact"
+  className="w-full py-12 md:py-24 lg:py-32 bg-muted/35"
+>
+  <div className="container mx-auto">
+    <div className="space-y-2 flex flex-col items-center text-center">
+      <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+        Get In Touch
+      </h2>
+      <p className="max-w-[900px] mx-auto text-muted-foreground md:text-xl">
+        Have a project in mind or want to chat? Feel free to reach out!
+      </p>
+    </div>
+    <div className="py-6 flex-col items-center justify-center space-y-4 text-center">
+      <div className="mx-auto grid max-w-5xl gap-6 py-2 md:grid-cols-2">
             {/* Contact Information */}
             <Card>
               <CardHeader>
@@ -103,8 +103,8 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle>Send Me a Message</CardTitle>
                 <CardDescription>
-                  Fill out the form below and I&apos;ll get back to you as soon as
-                  possible.
+                  Fill out the form below and I&apos;ll get back to you as soon
+                  as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
