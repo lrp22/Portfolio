@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 const Hero = () => {
   return (
-    <main className="flex-1">
+    <main className="flex-1 px-8 md:px-20 lg:px-32">
         <section className="w-full py-12 md:py-34 lg:py-42 xl:py-58">
           <div className="px-4">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">

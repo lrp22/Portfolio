@@ -49,7 +49,7 @@ export default function AnimatedPhoto({
   }, [controls, animationDuration, delay, repeat]);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-end">
       <div className="relative aspect-square overflow-hidden rounded-full w-[220px] md:w-[300px] lg:w-[340px]">
         <Image
           src={imageSrc || "/placeholder.svg"}
