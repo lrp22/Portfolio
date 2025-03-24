@@ -1,5 +1,3 @@
-import { ArrowRight, Github } from "lucide-react";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,36 +8,31 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ArrowRight, Github } from "lucide-react";
+import Link from "next/link";
 
 const Projects = () => {
-  // Custom projects array with unique data for each project
   const projects = [
     {
       id: 1,
-      title: "Portfolio Website",
-      description: "Personal portfolio built with Next.js and Tailwind CSS",
-      image: "/images/portfolio.jpg",
-      technologies: ["React", "Next.js", "Tailwind CSS"],
-      githubUrl: "https://github.com/yourusername/portfolio",
-      demoUrl: "https://your-portfolio-website.com"
+      title: "Todoist",
+      description: "Personal Todo App",
+      image:
+        "https://github.com/lrp22/Todo/blob/main/screenshots/1.png?raw=true",
+      technologies: ["ReactNative", "Expo", "NativeWind"],
+      githubUrl: "https://github.com/lrp22/Todo/tree/main",
+      //demoUrl: "https://your-portfolio-website.com",
     },
     {
       id: 2,
       title: "E-commerce Dashboard",
-      description: "Admin dashboard for managing online store products and orders",
-      image: "/images/dashboard.jpg",
+      description:
+        "Admin dashboard for managing online store products and orders",
+      image: "site.png",
       technologies: ["React", "Redux", "Material UI"],
       githubUrl: "https://github.com/yourusername/ecommerce-dashboard",
+      demoUrl: "",
     },
-    {
-      id: 3,
-      title: "Recipe App",
-      description: "Mobile-friendly recipe finder with search and filtering",
-      image: "/images/recipe-app.jpg",
-      technologies: ["React", "Firebase", "Styled Components"],
-      githubUrl: "https://github.com/yourusername/recipe-app",
-      demoUrl: "https://your-recipe-app.com"
-    }
   ];
 
   return (
@@ -59,49 +52,61 @@ const Projects = () => {
           </div>
           <div className="grid max-w-5xl gap-6 py-4 md:grid-cols-1 lg:grid-cols-3">
             {projects.map((project) => (
-              <Card key={project.id} className="overflow-hidden">
-                <div className="aspect-video w-full overflow-hidden">
+              <Card
+                key={project.id}
+                className="flex flex-col h-full overflow-hidden"
+              >
+                {/* Fixed-height image container to ensure alignment */}
+                <div className="h-64 flex items-center justify-center overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="object-cover transition-all hover:scale-105"
-                    width={400}
-                    height={200}
+                    className="max-h-full max-w-full object-contain align-middle justify-center items-center"
                   />
                 </div>
-                <CardHeader>
-                  <CardTitle>{project.title}</CardTitle>
-                  <CardDescription>
-                    {project.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <Badge key={tech} variant="outline">{tech}</Badge>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className={project.demoUrl ? "flex justify-between" : "flex justify-center"}>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={project.githubUrl} target="_blank">
-                      <Github className="mr-2 h-4 w-4" />
-                      Code
-                    </Link>
-                  </Button>
-                  {project.demoUrl && (
-                    <Button size="sm" asChild>
-                      <Link href={project.demoUrl} target="_blank">
-                        Demo
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                <div className="flex-1 flex flex-col">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="mb-2">{project.title}</CardTitle>
+                    <CardDescription className="mb-3">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 pt-0 pb-6">
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {project.technologies.map((tech) => (
+                        <Badge key={tech} variant="outline" className="py-1">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                  <CardFooter
+                    className={
+                      project.demoUrl
+                        ? "flex justify-between pt-2"
+                        : "flex justify-center pt-2"
+                    }
+                  >
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href={project.githubUrl} target="_blank">
+                        <Github className="mr-2 h-4 w-4" />
+                        Code
                       </Link>
                     </Button>
-                  )}
-                </CardFooter>
+                    {project.demoUrl && (
+                      <Button size="sm" asChild>
+                        <Link href={project.demoUrl} target="_blank">
+                          Demo
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    )}
+                  </CardFooter>
+                </div>
               </Card>
             ))}
           </div>
-          <Button variant="outline" asChild>
+          <Button variant="outline" asChild className="mt-4">
             <Link href="#">
               View All Projects
               <ArrowRight className="ml-2 h-4 w-4" />

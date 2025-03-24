@@ -14,13 +14,13 @@ const About = () => {
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                   My story
                 </h1>
-                <p className="text-xl text-gray-400">
+                <p className="text-xl text-muted-foreground">
                   At 32, I’m embarking on a new adventure. One that I’ve always
                   been curious about but only recently decided to pursue:
                   becoming a software developer.
                 </p>
 
-                <p className="text-xl text-gray-400 mt-4">
+                <p className="text-xl text-muted-foreground mt-4">
                   With a background in Business Administration, I’ve spent years
                   navigating different industries, even running my own
                   businesses. Through these experiences, I developed a
@@ -28,14 +28,15 @@ const About = () => {
                   creating solutions.
                 </p>
 
-                <p className="text-xl text-gray-400 mt-4">
-                  Now, I’m channeling that same energy into learning how to
-                  code, eager to build and contribute to meaningful projects. I
-                  know breaking into tech isn’t easy, but I believe that
-                  dedication, curiosity, and perseverance can open doors.
+                <p className="text-xl text-muted-foreground mt-4">
+                  Now, with the advancement of AI tools learning how to code
+                  became possible and more accessible. I am Eager to build and
+                  contribute to meaningful projects. Breaking into tech isn’t
+                  easy, but I believe that dedication, curiosity, and
+                  perseverance can open doors.
                 </p>
 
-                <p className="text-xl text-gray-400 mt-4">
+                <p className="text-xl text-muted-foreground mt-4">
                   I’m looking for that first opportunity. If you’re willing to
                   take a chance on a motivated self-starter with a fresh
                   perspective, let’s connect!

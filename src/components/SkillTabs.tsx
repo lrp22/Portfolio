@@ -44,13 +44,15 @@ const SkillTabs = () => {
           {skills.map(({ category, technologies }, index) => (
             <motion.div
               key={category}
-              className="h-full" // Ensures all cards are equal height
+              className="h-full"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
+                transition: { duration: 0.15 },
               }}
             >
               <Card className="border-primary h-full">
@@ -74,7 +76,7 @@ const SkillTabs = () => {
               </Card>
             </motion.div>
           ))}
-        </div>  
+        </div>
       </div>
     </section>
   );

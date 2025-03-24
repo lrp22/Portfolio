@@ -21,7 +21,7 @@ const Hero = () => {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.7, ease: "easeOut" }}
                 >
-                  Hi, I'm{" "}
+                  Hi, I&apos;m{" "}
                   <motion.span
                     className="text-primary"
                     initial={{ opacity: 0 }}
