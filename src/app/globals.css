@@ -5,6 +5,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --secondary-glow: conic-gradient(
+  from 10deg at 50% 50%,
+  #3c111d 0deg,
+  #351225 30deg,
+  #2b132c 55deg,
+  #1c1627 90deg,
+  #061323 120deg,
+  #12303b 140deg,
+  #1d4c5c 160deg,
+  #1d4c5c 260deg,
+  transparent 360deg
+);
+
+--secondary-glow: conic-gradient(
+  from 10deg at 50% 50%,
+  #3c111d 0deg,
+  #351225 30deg,
+  #2b132c 55deg,
+  #1c1627 90deg,
+  #061323 120deg,
+  #12303b 140deg,
+  #1d4c5c 160deg,
+  #1d4c5c 260deg,
+  transparent 360deg
+);
   --background: oklch(86% 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(100% 0 0);
