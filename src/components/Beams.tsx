@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import type React from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface AnimatedGradientBackgroundProps {
   className?: string;
@@ -37,6 +37,7 @@ export default function BeamsBackground({
   const beamsRef = useRef<Beam[]>([]);
   const animationFrameRef = useRef<number>(0);
   const MINIMUM_BEAMS = 20;
+  const [isMobile, setIsMobile] = useState(false);
 
   const opacityMap = {
     subtle: 0.35,
@@ -45,6 +46,9 @@ export default function BeamsBackground({
   };
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    setIsMobile(window.innerWidth < 768);
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -65,9 +69,7 @@ export default function BeamsBackground({
         opacity: isDarkMode
           ? 0.12 + Math.random() * 0.16
           : 0.06 + Math.random() * 0.1,
-        hue: isDarkMode
-          ? 220 + Math.random() * 30
-          : 260 + Math.random() * 40,
+        hue: isDarkMode ? 220 + Math.random() * 30 : 260 + Math.random() * 40,
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: 0.02 + Math.random() * 0.03,
       };
@@ -82,11 +84,13 @@ export default function BeamsBackground({
       ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transform before scaling
       ctx.scale(dpr, dpr);
 
-      const totalBeams = MINIMUM_BEAMS * 1.5;
+      const totalBeams = isMobile ? MINIMUM_BEAMS : MINIMUM_BEAMS * 1.5;
       beamsRef.current = Array.from({ length: totalBeams }, () =>
         createBeam(canvas.width, canvas.height)
       );
     };
+    setTimeout(updateCanvasSize, 50); // allow layout to stabilize
+    window.addEventListener("resize", updateCanvasSize);
 
     function resetBeam(beam: Beam, index: number, totalBeams: number) {
       if (!canvas) return beam;
@@ -148,7 +152,13 @@ export default function BeamsBackground({
       if (!canvas || !ctx) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.filter = isDarkMode ? "blur(35px)" : "blur(20px)";
+      ctx.filter = isDarkMode
+        ? isMobile
+          ? "blur(12px)"
+          : "blur(35px)"
+        : isMobile
+        ? "blur(6px)"
+        : "blur(20px)";
 
       const totalBeams = beamsRef.current.length;
       beamsRef.current.forEach((beam, index) => {
