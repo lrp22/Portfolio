@@ -36,8 +36,10 @@ export default function BeamsBackground({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const beamsRef = useRef<Beam[]>([]);
   const animationFrameRef = useRef<number>(0);
-  const MINIMUM_BEAMS = 20;
   const [isMobile, setIsMobile] = useState(false);
+
+  const MINIMUM_BEAMS = 10; // Reduced for performance
+  const MAX_MOBILE_BEAMS = 5; // Even fewer beams on mobile
 
   const opacityMap = {
     subtle: 0.35,
@@ -46,14 +48,31 @@ export default function BeamsBackground({
   };
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    setIsMobile(window.innerWidth < 768);
+    // Check for mobile device
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // Typical mobile breakpoint
+    };
 
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+
+    // Early return for mobile if performance is an issue
+    if (isMobile) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
 
     const isDarkMode = document.documentElement.classList.contains("dark");
 
@@ -84,14 +103,15 @@ export default function BeamsBackground({
       ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transform before scaling
       ctx.scale(dpr, dpr);
 
-      const totalBeams = isMobile ? MINIMUM_BEAMS : MINIMUM_BEAMS * 1.5;
+      // Adjust number of beams based on device
+      const totalBeams = isMobile 
+        ? MAX_MOBILE_BEAMS 
+        : Math.max(MINIMUM_BEAMS, Math.floor(window.innerWidth / 100));
+
       beamsRef.current = Array.from({ length: totalBeams }, () =>
         createBeam(canvas.width, canvas.height)
       );
     };
-    setTimeout(updateCanvasSize, 50); // allow layout to stabilize
-    window.addEventListener("resize", updateCanvasSize);
-
     function resetBeam(beam: Beam, index: number, totalBeams: number) {
       if (!canvas) return beam;
 
@@ -152,13 +172,7 @@ export default function BeamsBackground({
       if (!canvas || !ctx) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.filter = isDarkMode
-        ? isMobile
-          ? "blur(12px)"
-          : "blur(35px)"
-        : isMobile
-        ? "blur(6px)"
-        : "blur(20px)";
+      ctx.filter = isDarkMode ? "blur(35px)" : "blur(20px)";
 
       const totalBeams = beamsRef.current.length;
       beamsRef.current.forEach((beam, index) => {
@@ -185,7 +199,22 @@ export default function BeamsBackground({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [intensity]);
+  }, [intensity, isMobile]);
+
+  // Render nothing on mobile to completely avoid performance hit
+  if (isMobile) {
+    return (
+      <div
+        className={cn(
+          "relative w-full overflow-hidden bg-background",
+          fullHeight ? "min-h-screen" : "min-h-[80vh]",
+          className
+        )}
+      >
+        {children}
+      </div>
+    );
+  }
 
   return (
     <div
